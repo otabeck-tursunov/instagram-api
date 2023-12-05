@@ -3,7 +3,6 @@ import random
 import uuid
 
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import FileExtensionValidator
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
@@ -35,8 +34,7 @@ class User(AbstractUser, BaseModel):
     AUTH_STATUS = models.CharField(max_length=31, choices=AUTH_STATUS, default=NEW)
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=13, null=True, blank=True, unique=True)
-    photo = models.ImageField(upload_to='user-photos', null=True, blank=True,
-                              validators=FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'heic']))
+    photo = models.ImageField(upload_to='user-photos', null=True, blank=True)
 
     def __str__(self):
         return self.username
